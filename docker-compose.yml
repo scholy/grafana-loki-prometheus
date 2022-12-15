@@ -20,7 +20,7 @@ services:
     promtail:
         depends_on:
             - loki
-        image: grafana/promtail
+        image: grafana/promtail:master
         ports:
             - "9080:9080"
             - "1514:1514"
