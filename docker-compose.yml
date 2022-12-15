@@ -51,7 +51,7 @@ services:
         ports:
             - "9090:9090"
         volumes:
-            - ./prometheus:/app.cfg
+            - /opt/docker-home/grafana-loki-prometheus/prometheus:/app.cfg
         networks:
             - world
             - prometheus-cadvisor
