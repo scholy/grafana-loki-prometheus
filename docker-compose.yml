@@ -80,7 +80,7 @@ services:
             # automatically configure the loki datasource
             - /opt/docker-home/grafana-loki-prometheus/grafana/provisioning/:/etc/grafana/provisioning/
             # - /opt/docker-home/grafana-loki-prometheus/grafana:/app.cfg
-      networks:
+        networks:
             - world
             - grafana-loki
             - grafana-prometheus
