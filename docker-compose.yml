@@ -2,7 +2,7 @@ version: "3"
 
 services:
     loki:
-        image: grafana/loki:master
+        image: grafana/loki
         ports:
             - "3100:3100"
             - "9096:9096"
@@ -20,7 +20,7 @@ services:
     promtail:
         depends_on:
             - loki
-        image: grafana/promtail:master
+        image: grafana/promtail
         ports:
             - "9080:9080"
             - "1514:1514"
@@ -51,7 +51,7 @@ services:
             - prometheus-cadvisor
 
     prometheus:
-        image: prom/prometheus:v2.7.1
+        image: prom/prometheus
         ports:
             - "9090:9090"
         volumes:
@@ -72,7 +72,7 @@ services:
     grafana:
         depends_on:
             - loki
-        image: grafana/grafana:9.2.2
+        image: grafana/grafana
         ports:
             - "3000:3000"
         environment:
