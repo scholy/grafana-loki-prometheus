@@ -35,6 +35,7 @@ services:
         command: -config.file=/etc/promtail/config.yaml
         networks:
             - promtail-loki
+            - world
 
 
 
