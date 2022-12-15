@@ -3,20 +3,35 @@ version: "3"
 services:
     loki:
         image: grafana/loki:master
+        ports:
+            - "3100"
+        volumes:
+            # directory must be created first, with uid:gid 10001:10001
+            - /opt/docker-home/grafana-loki-prometheus/loki:/loki
         command: -config.file=/etc/loki/local-config.yaml
         networks:
             - grafana-loki
             - promtail-loki
+
 
     promtail:
         depends_on:
             - loki
         image: grafana/promtail:master
         volumes:
+            # custom config will read logs from the containers of
+            # this project
+            - /opt/docker-home/grafana-loki-prometheus/loki/promtail-config.yaml:/etc/promtail/config.yml
+            # to read container labels and logs
+            - /var/run/docker.sock:/var/run/docker.sock
+            - /var/lib/docker/containers:/var/lib/docker/containers
             - /var/log:/var/log
-        command: -config.file=/etc/promtail/docker-config.yaml
+        command: -config.file=/etc/promtail/config.yaml
         networks:
             - promtail-loki
+
+
+
 
     cadvisor:
         image: google/cadvisor:v0.33.0
@@ -45,22 +60,32 @@ services:
             --web.console.libraries=/usr/share/prometheus/console_libraries
             --web.console.templates=/usr/share/prometheus/consoles
 
+
+
+
     grafana:
         depends_on:
             - loki
-        image: grafana/grafana:6.0.0
+        image: grafana/grafana:9.2.2
         ports:
             - "3000:3000"
         environment:
             GF_SECURITY_ADMIN_USER: admin
             GF_SECURITY_ADMIN_PASSWORD: test
             GF_PATHS_PROVISIONING: '/app.cfg/provisioning'
+
         volumes:
+            # directory must be created first, with uid:gid 472:472
+            - /opt/docker-home/grafana-loki-prometheus/grafana/lib:/var/lib/grafana
+            # automatically configure the loki datasource
+            - /opt/docker-home/grafana-loki-prometheus/grafana/provisioning/:/etc/grafana/provisioning/
             - ./grafana:/app.cfg
-        networks:
+      networks:
             - world
             - grafana-loki
             - grafana-prometheus
+      
+      
 
 networks:
     world:
