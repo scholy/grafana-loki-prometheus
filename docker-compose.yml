@@ -20,6 +20,7 @@ services:
         image: grafana/promtail:master
         ports:
             - "9080:9080"
+            - "1514:1514"
         volumes:
             # custom config will read logs from the containers of
             # this project
