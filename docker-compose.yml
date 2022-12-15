@@ -18,6 +18,8 @@ services:
         depends_on:
             - loki
         image: grafana/promtail:master
+        ports:
+            - "9080:9080"
         volumes:
             # custom config will read logs from the containers of
             # this project
