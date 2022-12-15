@@ -15,6 +15,7 @@ services:
         networks:
             - grafana-loki
             - promtail-loki
+            - world
 
 
     promtail:
