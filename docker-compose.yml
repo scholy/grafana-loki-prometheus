@@ -86,7 +86,7 @@ services:
             # directory must be created first, with uid:gid 472:472
             - /opt/docker-home/grafana-loki-prometheus/grafana/lib:/var/lib/grafana
             # automatically configure the loki datasource
-            - /opt/docker-home/grafana-loki-prometheus/grafana/provisioning/:/etc/grafana/provisioning/
+            - /opt/docker-home/grafana-loki-prometheus/grafana/etc:/etc/grafana
             # - /opt/docker-home/grafana-loki-prometheus/grafana:/app.cfg
         networks:
             - world
