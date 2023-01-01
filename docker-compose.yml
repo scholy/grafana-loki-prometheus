@@ -16,6 +16,7 @@ services:
             - grafana-loki
             - promtail-loki
             - world
+        restart: always
 
 
     promtail:
@@ -37,6 +38,7 @@ services:
         networks:
             - promtail-loki
             - world
+        restart: always
 
 
 
@@ -67,8 +69,7 @@ services:
             --storage.tsdb.path=/prometheus
             --web.console.libraries=/usr/share/prometheus/console_libraries
             --web.console.templates=/usr/share/prometheus/consoles
-
-
+        restart: always
 
 
     grafana:
@@ -81,7 +82,6 @@ services:
             GF_SECURITY_ADMIN_USER: admin
             GF_SECURITY_ADMIN_PASSWORD: test
             GF_PATHS_PROVISIONING: '/app.cfg/provisioning'
-
         volumes:
             # directory must be created first, with uid:gid 472:472
             - /opt/docker-home/grafana-loki-prometheus/grafana/lib:/var/lib/grafana
@@ -92,7 +92,7 @@ services:
             - world
             - grafana-loki
             - grafana-prometheus
-      
+        restart: always
       
 
 networks:
