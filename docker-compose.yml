@@ -12,10 +12,6 @@ services:
             - /opt/docker-home/grafana-loki-prometheus/loki:/loki
             - /opt/docker-home/grafana-loki-prometheus/loki/etc:/etc
         command: -config.file=/etc/loki/local-config.yaml
-        networks:
-            - world
-            - grafana-loki
-            - promtail-loki
         restart: always
 
 
@@ -35,9 +31,6 @@ services:
             - /var/lib/docker/containers:/var/lib/docker/containers
             - /var/log:/var/log
         command: -config.file=/etc/promtail/config.yaml
-        networks:
-            - promtail-loki
-            - world
         restart: always
 
     cadvisor:
@@ -57,10 +50,6 @@ services:
             - "9090:9090"
         volumes:
             - /opt/docker-home/grafana-loki-prometheus/prometheus:/app.cfg
-        networks:
-            - world
-            - prometheus-cadvisor
-            - grafana-prometheus
         command: >-
             --config.file=/app.cfg/prometheus.yml
             --storage.tsdb.path=/prometheus
@@ -75,7 +64,6 @@ services:
         ports:
             - "30000:3000"
         environment:
-
             GF_PATHS_PROVISIONING: '/app.cfg/provisioning'
         volumes:
             # directory must be created first, with uid:gid 472:472
@@ -83,10 +71,6 @@ services:
             # automatically configure the loki datasource
             - /opt/docker-home/grafana-loki-prometheus/grafana/etc:/etc/grafana
             # - /opt/docker-home/grafana-loki-prometheus/grafana:/app.cfg
-        networks:
-            - world
-            - grafana-loki
-            - grafana-prometheus
         restart: always
 
     unpoller:
@@ -105,22 +89,6 @@ services:
             - UP_UNIFI_CONTROLLER_0_SAVE_EVENTS="true"
             - UP_UNIFI_CONTROLLER_0_SAVE_IDS="true"
             - UP_UNIFI_CONTROLLER_0_SAVE_SITES="true"
-        networks:
-            - world
-            - unpoller-prom
             
 
-
-networks:
-    world:
-    promtail-loki:
-        internal: true
-    grafana-loki:
-        internal: true
-    grafana-prometheus:
-        internal: true
-    prometheus-cadvisor:
-        internal: true
-    unpoller-prom:
-        internal: true
 
