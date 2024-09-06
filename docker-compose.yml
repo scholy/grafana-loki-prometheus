@@ -40,9 +40,6 @@ services:
             - world
         restart: always
 
-
-
-
     cadvisor:
         image: gcr.io/cadvisor/cadvisor
         volumes:
@@ -71,7 +68,6 @@ services:
             --web.console.templates=/usr/share/prometheus/consoles
         restart: always
 
-
     grafana:
         depends_on:
             - loki
@@ -79,8 +75,7 @@ services:
         ports:
             - "30000:3000"
         environment:
-            GF_SECURITY_ADMIN_USER: admin
-            GF_SECURITY_ADMIN_PASSWORD: test
+
             GF_PATHS_PROVISIONING: '/app.cfg/provisioning'
         volumes:
             # directory must be created first, with uid:gid 472:472
@@ -93,7 +88,28 @@ services:
             - grafana-loki
             - grafana-prometheus
         restart: always
-      
+
+    unpoller:
+        image: ghcr.io/unpoller/unpoller:latest
+        restart: unless-stopped
+        ports:
+            - '9130:9130'
+        container_name: unpoller
+        environment:
+            - UP_INFLUXDB_DISABLE="true"
+            - UP_POLLER_DEBUG="false"
+            - UP_UNIFI_DYNAMIC="false"
+            - UP_UNIFI_CONTROLLER_0_SAVE_ALARMS="true"
+            - UP_UNIFI_CONTROLLER_0_SAVE_ANOMALIES="true"
+            - UP_UNIFI_CONTROLLER_0_SAVE_DPI="true"
+            - UP_UNIFI_CONTROLLER_0_SAVE_EVENTS="true"
+            - UP_UNIFI_CONTROLLER_0_SAVE_IDS="true"
+            - UP_UNIFI_CONTROLLER_0_SAVE_SITES="true"
+        networks:
+            - world
+            - unpoller-prom
+            
+
 
 networks:
     world:
@@ -105,3 +121,6 @@ networks:
         internal: true
     prometheus-cadvisor:
         internal: true
+    unpoller-prom:
+        internal: true
+
