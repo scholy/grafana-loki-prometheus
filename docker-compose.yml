@@ -13,9 +13,9 @@ services:
             - /opt/docker-home/grafana-loki-prometheus/loki/etc:/etc
         command: -config.file=/etc/loki/local-config.yaml
         networks:
+            - world
             - grafana-loki
             - promtail-loki
-            - world
         restart: always
 
 
