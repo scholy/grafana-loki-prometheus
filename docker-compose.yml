@@ -41,8 +41,7 @@ services:
             - /sys:/sys:ro
             - /var/lib/docker/:/var/lib/docker:ro
             - /dev/disk/:/dev/disk:ro
-        networks:
-            - prometheus-cadvisor
+
 
     prometheus:
         image: prom/prometheus
