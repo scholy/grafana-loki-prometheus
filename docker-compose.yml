@@ -80,16 +80,16 @@ services:
         container_name: unpoller
         volumes:
             - /opt/docker-home/grafana-loki-prometheus/unpoller/etc-unifi-poller:/etc/unifi-poller
-        environment:
-            - UP_INFLUXDB_DISABLE="true"
+        #environment:
+            #- UP_INFLUXDB_DISABLE="true"
             #- UP_POLLER_DEBUG="false"
-            - UP_UNIFI_DYNAMIC="false"
-            - UP_UNIFI_CONTROLLER_0_SAVE_ALARMS="true"
-            - UP_UNIFI_CONTROLLER_0_SAVE_ANOMALIES="true"
-            - UP_UNIFI_CONTROLLER_0_SAVE_DPI="true"
-            - UP_UNIFI_CONTROLLER_0_SAVE_EVENTS="true"
-            - UP_UNIFI_CONTROLLER_0_SAVE_IDS="true"
-            - UP_UNIFI_CONTROLLER_0_SAVE_SITES="true"
+            #- UP_UNIFI_DYNAMIC="false"
+            #- UP_UNIFI_CONTROLLER_0_SAVE_ALARMS="true"
+            #- UP_UNIFI_CONTROLLER_0_SAVE_ANOMALIES="true"
+            #- UP_UNIFI_CONTROLLER_0_SAVE_DPI="true"
+            #- UP_UNIFI_CONTROLLER_0_SAVE_EVENTS="true"
+            #- UP_UNIFI_CONTROLLER_0_SAVE_IDS="true"
+            #- UP_UNIFI_CONTROLLER_0_SAVE_SITES="true"
             
 
 
