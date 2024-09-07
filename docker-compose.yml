@@ -79,7 +79,7 @@ services:
             - '9130:9130'
         container_name: unpoller
         volumes:
-            - /opt/docker-home/grafana-loki-prometheus/unpoller/etc-unpoller:/etc/unpoller
+            - /opt/docker-home/grafana-loki-prometheus/unpoller/etc-unnifi-poller:/etc/unifi-poller
         environment:
             - UP_INFLUXDB_DISABLE="true"
             - UP_POLLER_DEBUG="false"
