@@ -81,7 +81,7 @@ services:
         volumes:
             #- /opt/docker-home/grafana-loki-prometheus/unpoller/etc-unifi-poller:/etc/unifi-poller
             - /opt/docker-home/grafana-loki-prometheus/unpoller/etc-unpoller/up.conf:/etc/unpoller/up.conf
-            - /opt/docker-home/grafana-loki-prometheus/unpoller/web:/usr/local/lib/unpoller
+            - /opt/docker-home/grafana-loki-prometheus/unpoller/web:/usr/local/lib/unpoller/web
         #environment:
             #- UP_INFLUXDB_DISABLE="true"
             #- UP_POLLER_DEBUG="false"
